@@ -1,0 +1,99 @@
+#include <iostream>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+class Student {
+private:
+    int rollNo;
+    string name;
+    float marks;
+
+public:
+    Student(int r, string n, float m) {
+        rollNo = r;
+        name = n;
+        marks = m;
+    }
+
+    void display() {
+        cout << left << setw(10) << rollNo
+             << setw(20) << name
+             << setw(10) << marks;
+
+        if (marks >= 90)
+            cout << "A";
+        else if (marks >= 75)
+            cout << "B";
+        else if (marks >= 60)
+            cout << "C";
+        else
+            cout << "D";
+
+        cout << endl;
+    }
+};
+
+int main() {
+    vector<Student> students;
+    int choice;
+
+    do {
+        cout << "\n===== TechExplorer Student Grade System =====\n";
+        cout << "1. Add Student\n";
+        cout << "2. Display Students\n";
+        cout << "3. Exit\n";
+        cout << "Enter Choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: {
+                int roll;
+                string name;
+                float marks;
+
+                cout << "Enter Roll Number: ";
+                cin >> roll;
+
+                cin.ignore();
+                cout << "Enter Student Name: ";
+                getline(cin, name);
+
+                cout << "Enter Marks: ";
+                cin >> marks;
+
+                students.push_back(Student(roll, name, marks));
+                cout << "Student added successfully!\n";
+                break;
+            }
+
+            case 2: {
+                if (students.empty()) {
+                    cout << "No student records found.\n";
+                } else {
+                    cout << "\n--------------------------------------------\n";
+                    cout << left << setw(10) << "Roll No"
+                         << setw(20) << "Name"
+                         << setw(10) << "Marks"
+                         << "Grade\n";
+                    cout << "--------------------------------------------\n";
+
+                    for (auto &s : students)
+                        s.display();
+                }
+                break;
+            }
+
+            case 3:
+                cout << "Exiting Program...\n";
+                break;
+
+            default:
+                cout << "Invalid choice!\n";
+        }
+
+    } while (choice != 3);
+
+    return 0;
+}
